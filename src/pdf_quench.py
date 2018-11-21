@@ -508,12 +508,6 @@ class CroppingBox(GooCanvas.CanvasGroup):
         resizer.props.y = resizer.props.y + dy
       self.__drag_x = event.x
       self.__drag_y = event.y
-      page_info = item.get_canvas().page_info
-      crop_setting = page_info.crop_setting.effective_crop_setting
-      crop_setting['x'] = self.__rect.props.x
-      crop_setting['y'] = self.__rect.props.y
-      crop_setting['w'] = self.__rect.props.width
-      crop_setting['h'] = self.__rect.props.height
 
     return True
 
@@ -536,6 +530,12 @@ class CroppingBox(GooCanvas.CanvasGroup):
 
   def __on_button_release(self, item, target, event):
     if event.button.button == 1:
+      page_info = item.get_canvas().page_info
+      crop_setting = page_info.crop_setting.effective_crop_setting
+      crop_setting['x'] = self.__rect.props.x
+      crop_setting['y'] = self.__rect.props.y
+      crop_setting['w'] = self.__rect.props.width
+      crop_setting['h'] = self.__rect.props.height
       item.get_canvas().pointer_ungrab(item, event.time)
       self.__dragging = False
     return True
